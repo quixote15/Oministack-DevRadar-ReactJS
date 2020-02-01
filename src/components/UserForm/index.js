@@ -1,4 +1,9 @@
 import React, {useState, useEffect} from 'react';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 // import { Container } from './styles';
 import {TextField, MenuItem} from '@material-ui/core';
@@ -65,8 +70,26 @@ export default function UserForm({onSubmit}) {
     <form onSubmit={handleSubmit}>
     <TextField id="standard-basic" value={name} onChange={(e) => setName(e.target.value)} label="Nome" type="text" style={{width: '100%'}} required/>
     <PhoneInput value={phone} onChangePhone={(text) => setPhone(text)} />
-    <DateInput value={birthday} onChangeDate={(text) => setBirthDay(text)} />
-    
+   
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+
+    <KeyboardDatePicker
+          disableToolbar
+          variant="inline"
+          format="MM/dd/yyyy"
+          margin="normal"
+          id="date-picker-inline"
+          label="Data de Nascimento"
+          value={birthday}
+          style={{width: '100%'}}
+          onChange={(date) => setBirthDay(date)}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+
+    </MuiPickersUtilsProvider>
+
     <TextField id="standard-basic" value={registerID} onChange={(e) => setRegisterID(e.target.value)}  label="Matricula" type="number" style={{width: '100%'}} />
     <EmailInput value={email} onChangeEmail={(text) => setEmail(text)} />
     
