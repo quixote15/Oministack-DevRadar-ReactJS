@@ -4,31 +4,35 @@ import './App.css';
 import './global.css'
 import './aside.css'
 import './main.css'
-import DevItem from './components/DevItem';
+
+
 import DevForm from './components/DevForm';
+import UserItem from './components/UserItem';
+import UserForm from './components/UserForm';
+import Form from './components/Form';
 
 
 
 function App() {
-  const [devs, setDevs] = useState([]);
+  const [users, setUsers] = useState([]);
 
 
   useEffect(() => {
-    async function loadDevs() {
-      const response = await api.get('/devs');
+    async function loadUsers() {
+      const response = await api.get('/users');
       console.log(response)
-      setDevs(response.data)
+      setUsers(response.data)
 
     }
 
-    loadDevs()
+    loadUsers()
     
   }, []);
 
   async function handleAddDev(data) {
-    const response = await api.post('devs', data);
+    const response = await api.post('users', data);
 
-    setDevs([...devs, response.data]);
+    setUsers([...users, response.data]);
 
   }
 
@@ -36,12 +40,12 @@ function App() {
     <div id="app">
       <aside>
         <strong>Cadastrar</strong>
-        <DevForm onSubmit={handleAddDev} />
+        <UserForm onSubmit={handleAddDev} />
       </aside>
       <main>
         <ul>
-          {devs.map(dev => (
-            <DevItem key={dev._id} dev={dev} />
+          {users.map(user => (
+            <UserItem key={user._id} user={user} />
             )
           )}
         
